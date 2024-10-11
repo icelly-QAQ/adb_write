@@ -1,0 +1,4 @@
+ADB_Write
+
+
+该项目是基于pyhton制作的adb模拟手写输入的程序
