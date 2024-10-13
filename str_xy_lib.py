@@ -1,6 +1,7 @@
 from functools import lru_cache
 import subprocess
 
+i = 0
 commands = []
 base_coordinates = {
     "1": [[10, 10], [7, 100]],
@@ -19,13 +20,20 @@ base_coordinates = {
 }
 
 
-def get_str_xy(input_str, shift_x: int = 0, shift_y: int = 0):
+def main(input_str, shift_x: int = 0, shift_y: int = 0):
+    commands.clear()
     for i in range(len(base_coordinates[input_str]) - 1):
-        commands.append(f"input swipe {(base_coordinates[input_str][i][0]) + shift_x} {(base_coordinates[input_str][i][1]) + shift_y} {(base_coordinates[input_str][i + 1][0]) + shift_x} {(base_coordinates[input_str][i + 1][1]) + shift_y} 0")
+        commands.append(f"input swipe {(base_coordinates[input_str][i][0]) + shift_x} {(base_coordinates[input_str][i][1]) + shift_y} {(base_coordinates[input_str][i + 1][0]) + shift_x} {(base_coordinates[input_str][i + 1][1]) + shift_y} 100")
     for i in range(len(commands)):
         print(commands[i])
         awa = subprocess.run(["adb", "shell", commands[i]])
     return awa
+
+def get_str_xy(input_str_list, shift_x: int = 0, shift_y: int = 0, interval: int = 100):
+    global i
+    for input_str in input_str_list:
+        main(input_str, shift_x + (interval * i), shift_y)
+        i += 1
 
 '''
 基准分辨率（1080 x 2880）
