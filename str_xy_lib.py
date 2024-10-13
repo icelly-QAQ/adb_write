@@ -19,18 +19,13 @@ base_coordinates = {
 }
 
 
-def get_str_xy(input_str, shift_x: int = 0, shift_y: int = 0, more=False):
-    if more:
-        if type(input_str) is list:
-            str_list = []
-            for i_str in input_str:
-                str_list.append(base_coordinates[i_str])
-            return str_list
-        else:
-            return "Error,传入的参数不是列表"
+def get_str_xy(input_str, shift_x: int = 0, shift_y: int = 0):
     for i in range(len(base_coordinates[input_str]) - 1):
-        commands.append(f"input swipe {(base_coordinates[input_str][i][0]) + shift_x} {(base_coordinates[input_str][i][1]) + shift_y} {(base_coordinates[input_str][i + 1][0]) + shift_x} {(base_coordinates[input_str][i + 1][1]) + shift_y} 100")
-    return commands
+        commands.append(f"input swipe {(base_coordinates[input_str][i][0]) + shift_x} {(base_coordinates[input_str][i][1]) + shift_y} {(base_coordinates[input_str][i + 1][0]) + shift_x} {(base_coordinates[input_str][i + 1][1]) + shift_y} 0")
+    for i in range(len(commands)):
+        print(commands[i])
+        awa = subprocess.run(["adb", "shell", commands[i]])
+    return awa
 
 '''
 基准分辨率（1080 x 2880）
@@ -40,8 +35,7 @@ def get_str_xy(input_str, shift_x: int = 0, shift_y: int = 0, more=False):
 '''
 
 if __name__ == "__main__":
-    str_to_get = "9"
+    str_to_get = ">"
     shift_x = 100
     shift_y = 500
-    for i in range(len(get_str_xy(str_to_get, shift_x, shift_y))):
-        awa = subprocess.run(["adb", "shell", get_str_xy(str_to_get, shift_x, shift_x)[i]])
+    get_str_xy(str_to_get, shift_x, shift_y)
