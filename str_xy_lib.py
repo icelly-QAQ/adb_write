@@ -20,7 +20,7 @@ base_coordinates = {
 }
 
 
-def main(input_str, shift_x: int = 0, shift_y: int = 0):
+def main(input_str, shift_x: int = 0, shift_y: int = 0): # 请不要调用该函数！！！
     commands.clear()
     for i in range(len(base_coordinates[input_str]) - 1):
         commands.append(f"input swipe {(base_coordinates[input_str][i][0]) + shift_x} {(base_coordinates[input_str][i][1]) + shift_y} {(base_coordinates[input_str][i + 1][0]) + shift_x} {(base_coordinates[input_str][i + 1][1]) + shift_y} 100")
